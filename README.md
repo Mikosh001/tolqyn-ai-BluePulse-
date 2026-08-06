@@ -5,7 +5,7 @@
 (Interception Point) ұсынатын және кері есептеу (Reverse Drift) арқылы
 ықтимал бастапқы көзін анықтайтын толық жұмыс істейтін MVP.
 
-**Команда:** BluePulse · **Caspian Hackathon 2026** (5–12 тамыз, Маңғыстау облысы)
+**Команда:** BluePulse
 
 > TOLQYN AI желді, су ағысын және спутниктік деректерді талдап, ластану мен
 > қауіпті объектілердің қайда тарайтынын, қашан жетерін және қай жерде
@@ -44,19 +44,19 @@ API-дан алынған дерек (Open-Meteo). Ешбір сан қатыр�
 
 ```
 ┌─────────────────────┐        HTTP/JSON        ┌──────────────────────────┐
-│   Frontend (React)  │ ───────────────────────▶ │   Backend (FastAPI)      │
-│   Leaflet карта      │ ◀─────────────────────── │   numpy drift-симуляция  │
-│   GitHub Pages       │                          │   Render.com             │
+│   Frontend (React)  │ ───────────────────────▶│   Backend (FastAPI)      │
+│   Leaflet карта     │ ◀─────────────────────── │   numpy drift-симуляция │
+│   GitHub Pages      │                          │   Render.com             │ 
 └─────────────────────┘                          └───────────┬──────────────┘
-        │  желі жоқ болса да                                  │
-        │  клиент жағында                                     ▼
-        ▼  demo-симуляция жұмыс істейді              ┌──────────────────────┐
-┌─────────────────────┐                              │  Open-Meteo API       │
-│ src/lib/simulation.ts│                              │  (жел + ағыс, тегін)  │
+        │  желі жоқ болса                                    │
+        │  demo-симуляция жұмыс істейді                      ▼
+        ▼                                            ┌──────────────────────┐
+┌─────────────────────┐                              │   Open-Meteo API     │
+│src/lib/simulation.ts│                              │ (жел + ағыс есептеу) │
 └─────────────────────┘                              └──────────────────────┘
 ```
 
-Екі тәуелсіз орындалу ортасы қасақана жасалған:
+Екі тәуелсіз орындалу ортасы жасалған:
 
 1. **Frontend-client симуляция** (`src/lib/simulation.ts`) — TypeScript-те
    толығымен дербес жұмыс істейді, backend/интернет мүлдем болмаса да
@@ -109,7 +109,7 @@ npm run dev
 
 ---
 
-## 4. Жюриге демо сценарийі (5 минут)
+## 4. демо сценарийі 
 
 1. **Forward Drift**: әдепкі оқиға нүктесімен (мұнай дағы) тікелей
    «Симуляцияны бастау» басыңыз. Нәтиже панелінде ең қауіпті сектор,
@@ -124,38 +124,12 @@ npm run dev
 5. Backend-ті өшіріп көрсетіңіз (Ctrl+C) — "Demo Data" режимі әлі де
    толық жұмыс істейтінін көрсетіңіз (интернетсіз/backend-сіз талап).
 
----
 
-## 5. Деплой (нөлдік бюджет)
 
-### Frontend → GitHub Pages
-
-```bash
-npm run build
-npm run deploy
-```
-
-`vite.config.ts` ішіндегі `base` мәнін GitHub репо атауыңызға сәйкес
-өзгертіңіз. `.env.production` файлында `VITE_API_BASE_URL`-ды деплой
-етілген backend URL-іне қойыңыз (мыс. `https://tolqyn-ai.onrender.com`).
-
-### Backend → Render.com (тегін tier, карта нөмірі қажет емес)
-
-1. Репозиторийді Render-ге қосыңыз, **Web Service** түрін таңдаңыз.
-2. Build command: `pip install -r requirements.txt`
-3. Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-4. Root directory: `backend`
-
-**Ескерту:** Render-дің тегін tier-і 15 минут белсенділік болмаса
-"ұйықтап қалады" және келесі сұраныста 30–60 секунд "оянуға" кетеді.
-Демо/қорғау алдында backend-ке бір рет сұраныс жіберіп ("ояту")
-қойыңыз (мыс. `curl https://<repo>.onrender.com/api/health`).
-Frontend бұл кідірісті де қауіпсіз өңдейді — тек fallback ескертуі
-шығуы мүмкін.
 
 ---
 
-## 6. Жоба құрылымы
+## 5. Жоба құрылымы
 
 ```
 tolqyn-ai/
@@ -190,7 +164,7 @@ tolqyn-ai/
 
 ---
 
-## 7. API қысқаша анықтамалығы
+## 6. API қысқаша анықтамалығы
 
 Толық интерактивті құжаттама: `http://localhost:8000/docs` (Swagger UI,
 FastAPI automatты генерациялайды).
@@ -204,7 +178,7 @@ FastAPI automatты генерациялайды).
 | `/api/simulate` | POST | Толық дрейф симуляциясы (forward/reverse) |
 | `/api/detect-anomaly` | POST | Спутник суретін жүктеп, аномалия анықтау |
 
-## 8. Тестілеу
+## 7. Тестілеу
 
 ```bash
 cd backend
@@ -215,7 +189,7 @@ pytest -v          # 22 тест: drift моделі, risk scoring, API, CV
 npm run build       # TypeScript type-check + Vite build
 ```
 
-## 9. Технологиялар
+## 8. Технологиялар
 
 **Frontend:** React 19, TypeScript, Vite, Leaflet/react-leaflet, lucide-react
 **Backend:** FastAPI, NumPy, httpx, OpenCV (opencv-python-headless), Pydantic
@@ -224,7 +198,7 @@ npm run build       # TypeScript type-check + Vite build
 **Инфрақұрылым:** GitHub Pages (frontend) + Render.com free tier (backend) —
 толық нөлдік бюджет
 
-## 10. Одан әрі даму
+## 9. Одан әрі даму
 
 Толық тізім `HACKATHON_COMPLIANCE.md` файлында. Қысқаша:
 
@@ -234,7 +208,7 @@ npm run build       # TypeScript type-check + Vite build
 - PWA/офлайн-кэштеу (Service Worker)
 - Мобильді далалық қосымша (жағалау қызметтеріне арналған)
 
-## 11. Жүлде қорын пайдалану жоспары
+## 10. Жүлде қорын пайдалану жоспары
 
 Хакатон жеңімпаздары жобаны 2026 жылғы 31 желтоқсанға дейін дамытуды
 жалғастыру міндеттемесін алады (Ереже, 17-тармақ). Жүлде қаражатын
