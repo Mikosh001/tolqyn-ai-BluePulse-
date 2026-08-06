@@ -1,0 +1,29 @@
+
+# Бір командамен толық стекті (frontend + backend) көтеру:
+#   docker compose up --build
+# Frontend: http://localhost:5173
+# Backend:  http://localhost:8000  (Swagger: http://localhost:8000/docs)
+#
+# ЕСКЕРТУ: бұл — жергілікті демо/әзірлеу үшін ыңғайлылық. npm/pip қолмен
+# орнатқыңыз келсе, түбірдегі және backend/ ішіндегі README.md файлдарындағы
+# қадамдарды қолмен орындауға болады.
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  frontend:
+    build: .
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000
+    depends_on:
+      - backend
