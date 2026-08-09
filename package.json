@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://mikosh001.github.io/tolqyn-ai-BluePulse-/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
