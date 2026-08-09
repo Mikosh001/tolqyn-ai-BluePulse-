@@ -6,5 +6,5 @@ export default defineConfig({
   plugins: [react()],
   // GitHub Pages жобаны https://<username>.github.io/<repo>/ түрінде орналастырады —
   // репо атауын өз атауыңызбен ауыстырыңыз (мыс. '/tolqyn-ai/').
-  base: '/tolqyn-ai/',
+  base: '/tolqyn-ai-BluePulse-/',
 })
